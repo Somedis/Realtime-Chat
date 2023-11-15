@@ -1,21 +1,14 @@
-import os
-import sys
-
-from pathlib import Path
 from datetime import timedelta
-
+from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
-STATIC_DIR = BASE_DIR.parent
-sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
-
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-%_t)4k3s7mxh5a4a#9amp6e2m-6a5544du9+g+so1e#h6kob94' # noqa
+SECRET_KEY = 'django-insecure-yh*qgm!8)rf^%kfj&s$3(w8w&@qs*4qrb0exwfscq3yy+=tx+p' # noqa
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -26,6 +19,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 DJANGO_APPS = [
+    'daphne',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,12 +33,12 @@ THIRD_PARTY = [
     'rest_framework',
     'django_filters',
     'corsheaders',
-    'constance',
-    'constance.backends.database',
+    'channels',
 ]
 
 LOCAL_APPS = [
-    'userApi.apps.UserapiConfig',
+    'userApi',
+    'chatApi',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY + LOCAL_APPS
@@ -51,7 +46,6 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY + LOCAL_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -77,8 +71,17 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi.application'
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
 
+WSGI_APPLICATION = 'config.wsgi.application'
+ASGI_APPLICATION = 'config.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -125,11 +128,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
-
-STATIC_ROOT = os.path.join(STATIC_DIR, 'static/')
-MEDIA_ROOT = os.path.join(STATIC_DIR, 'media/')
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -145,5 +144,7 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=1200),
 }
+
+CORS_ORIGIN_ALLOW_ALL = True

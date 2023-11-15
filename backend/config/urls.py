@@ -1,7 +1,5 @@
 from django.contrib import admin
 from django.urls import path, include
-from config.settings import base
-from django.conf.urls.static import static
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -20,10 +18,6 @@ urlpatterns = [
          name='token_verify'),
 
     path('api/users/', include('userApi.urls')),
-]
 
-if base.DEBUG:
-    urlpatterns += static(base.MEDIA_URL,
-                          document_root=base.MEDIA_ROOT)
-    urlpatterns += static(base.STATIC_URL,
-                          document_root=base.STATIC_ROOT)
+    path('chat/', include('chatApi.urls'))
+]
