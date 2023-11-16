@@ -1,0 +1,16 @@
+.CreateGroup {
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.CreateGroup:hover {
+    color: #f68657;
+}
+
+.ModalContent {
+    padding: 20px;
+    background: var(--color-lighter);
+    min-width: 300px;
+    min-height: 300px;
+    border-radius: 15px;
+}

@@ -1,0 +1,7 @@
+.ModalContent {
+    padding: 20px;
+    background: var(--color-lighter);
+    min-width: 800px;
+    min-height: 700px;
+    border-radius: 15px;
+}

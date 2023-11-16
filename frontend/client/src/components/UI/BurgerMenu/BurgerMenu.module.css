@@ -1,0 +1,29 @@
+.BurgerMenu {
+    height: 91px;
+    width: 60px;
+    overflow: hidden;
+}
+
+.InnerMenu {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.UserInfo {
+    margin-bottom: 80px;
+    font-size: 28px;
+}
+
+.MenuAction {
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.LogoutAction {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
